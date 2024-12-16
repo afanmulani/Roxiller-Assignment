@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Excel Bar Graph</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #bar-chart-container {
+            width: 80%;
+            margin: auto;
+        }
+        canvas {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Excel File to Display Bar Graph</h1>
+    
+    <!-- File input for uploading the Excel file -->
+    <input type="file" id="excel-file" accept=".xls,.xlsx" />
+    
+    <!-- Container for the bar chart -->
+    <div id="bar-chart-container">
+        <canvas id="barChart"></canvas>
+    </div>
+
+    <script>
+        document.getElementById('excel-file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+
+                // Get the first sheet from the Excel file
+                const sheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[sheetName];
+
+                // Convert sheet data to JSON (header: 1 means the first row will be used as labels)
+                const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+                // Extract labels and values (assuming data is in two columns: first column for labels, second for values)
+                const labels = jsonData.map(row => row[0]);
+                const values = jsonData.map(row => row[1]);
+
+                // Render the bar chart
+                renderBarChart(labels, values);
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        // Function to render the bar chart using Chart.js
+        function renderBarChart(labels, values) {
+            const ctx = document.getElementById('barChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels, // Labels for the X-axis
+                    datasets: [{
+                        label: 'Values from Excel',
+                        data: values, // Data for the Y-axis
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

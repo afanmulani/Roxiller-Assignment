@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Transaction Dashboard</h1>
+        </header>
+        <div class="controls">
+            <input type="text" placeholder="Search transaction" class="search-bar">
+            <select class="month-dropdown">
+                <option value="">Select Month</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <!-- Add more months as needed -->
+            </select>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Sold</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Transaction 1</td>
+                    <td>Description 1</td>
+                    <td>$10.00</td>
+                    <td>Category 1</td>
+                    <td>Yes</td>
+                    <td><img src="image1.jpg" alt="Image 1" class="transaction-image"></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Transaction 2</td>
+                    <td>Description 2</td>
+                    <td>$20.00</td>
+                    <td>Category 2</td>
+                    <td>No</td>
+                    <td><img src="image2.jpg" alt="Image 2" class="transaction-image"></td>
+                </tr>
+ <tr>
+                    <td>3</td>
+                    <td>Transaction 3</td>
+                    <td>Description 3</td>
+                    <td>$30.00</td>
+                    <td>Category 3</td>
+                    <td>No</td>
+                    <td><img src="image2.jpg" alt="Image 3" class="transaction-image"></td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
+        <div class="pagination">
+            <span>Page No: 1</span>
+            <button>Previous</button>
+            <button>Next</button>
+            <span>Per Page: 
+                <select>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </span>
+        </div>
+    </div>
+</body>
+</html>
